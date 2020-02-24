@@ -1,0 +1,65 @@
+<template>
+
+    <article class="weui-article">
+        <h1>{{data[0].activity.title}}</h1>
+        <section>
+            <p>{{data[0].activity.content}}</p>
+        </section>
+    </article>
+
+    <form id="sign-form">
+        <div class="weui-cells__title">手机号</div>
+
+        <div class="weui-cells">
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="tel" name="phone" placeholder="请输入手机号" value="{{data[0].phone}}">
+                </div>
+            </div>
+        </div>
+        <div class="weui-cells__title">姓名</div>
+        <div class="weui-cells">
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" name="name" placeholder="请输入姓名" value="{{data[0].name}}">
+                </div>
+            </div>
+        </div>
+        <div class="weui-cells__tips">确认您的报名信息后请点击</div>
+        <a href="javascript:;" onclick="$f('___.save','{{data[0].activity.id}}');" class="weui-btn weui-btn_primary">签到</a>
+    </form>
+</template>
+<script>
+    $f("df", ___, function (page, data) {
+        if (data == null) {
+            alert("未选择活动");
+        }
+        $f("ajax.get", $f("server", "punch/mypunch"), {
+            activityid: data
+        }, "___.show", page)();
+    });
+
+    $f("df", "___.show", function (data, page) {
+        $f("renderhtml", "body", page, data);
+    });
+
+    $f("df", "___.save", function (activityid) {
+        var formdata = $f("getformdata", "#sign-form");
+        if (formdata.phone.length == 0) {
+            alert("请填写正确的报名信息");
+            return;
+        }
+
+        if (formdata.name.length == 0) {
+            alert("请填写正确的报名信息");
+            return;
+        }
+        formdata.activityid = activityid;
+        $f("ajax.post", $f("server", "sign/add"), formdata, "___.saveResult")();
+    });
+    $f("df", "___.saveResult", function (data) {
+        if (data.success == true) {
+            alert("签到成功了");
+        }
+    });
+</script>

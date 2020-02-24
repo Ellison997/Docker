@@ -1,0 +1,289 @@
+<template>
+    <style>
+        .navigate{
+            text-align: center;
+        }
+        /* 局部样式 */
+        .navigate>img{
+            width: 17rem;
+        }
+        .issue-list{
+            text-align: center;
+        }
+        .issue{
+            background: #fff;
+            border: 2px solid #42b2a1;
+            border-radius: 10px;
+            margin: 1.2rem auto;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        .issue>.title{
+            position: relative;
+            z-index: 111;
+            top:-1rem;
+            font-size: 0.8rem;
+        }
+        .title>h2{
+            width: 11rem;
+            margin: 0 auto;
+            background: url(./img/present/issue_top.png) no-repeat;
+            background-size: 100%;
+            color: #fff;
+        }
+        
+        .issue>.issue-text{
+            color: #40b1a0;
+        }
+        .issue-text p{
+            line-height: 1;
+        }
+        .answer{
+           display: flex;
+           position: relative;
+           z-index: 111;
+           bottom: -0.8rem;
+        }
+        .radio-btn{
+            background: #91d9d3;
+            border-radius: 1rem;
+            border: 1px solid #42b2a1;
+            width: 32%;
+            height: 1.6rem;
+            line-height: 1.6rem;
+            margin: 0rem 0.3rem;
+            color: #fff;
+        }
+        .answer>.textInput{
+            display: block;
+            opacity: 1;
+            width: 92%;
+            border-radius: 0.3rem;
+            height: 1.6rem;
+            line-height: 1.6rem;
+            margin: 0 auto;
+            border: 1px solid #42b2a1;
+            padding: 0 0.3rem;
+        }
+        .answer>input{
+            display: none;
+            opacity: 0;
+        }
+        
+        .answer input[type=radio]:checked + label {
+            background: #1c64cf;
+        }
+
+
+        .btn>.lipin {
+           display: flex;
+           flex-direction: row;
+           flex-wrap: nowrap;
+           align-items: center;
+           padding: 0 12%;
+        }
+        img.bolang{
+            width: 32%;
+            height: 1.6rem;
+        }
+        img.qiang{
+               width: 25%;
+               margin-left: 4%;
+               margin-right: 6%;
+        }
+        .advertising{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-items: center;
+            width: 60%;
+            margin: 0 20%;
+            margin-top: 0.8rem;
+        }
+        .advertising img{
+            width: 5rem;
+        }
+        
+        .adv-text{
+            margin-left: 0.4rem;
+            font-size: 0.8rem;
+            line-height: 1.4;
+            color: #4c4e4e;
+        }
+        footer{
+            padding-bottom: 4rem;
+        }
+        /* 蒙层 */
+        .shade{
+                    position: absolute;
+                    top: 0;
+                    z-index: 222;
+                    background: rgba(0,0,0,0.7);
+                    height: 100%;
+                    width: 100%;
+                    display: none;
+                }
+                .alert_gift{
+                    text-align: center;
+                    padding: 5rem 0;
+                }
+                .alert_gift img{
+                    width: 14rem
+                }
+                .result_text{
+                    width: 60%;
+                    height: 5rem;
+                    line-height: 5rem;
+                    font-size: 1.3rem;
+                    background: #fff;
+                    margin: 1.2rem 20%;
+                    border-radius: 1rem;
+                }
+        </style>
+    <div class="content_bg">
+        <div class="content">
+            <nav>
+                <div class="navigate">
+                    <img src="./img/present/huidawenti.png" alt="回答问题抢礼品">
+                </div>
+            </nav>
+            <div class="issue-list">
+                <section>
+                    <div class="issue">
+                        <div class="title">
+                            <h2>第1题</h2>
+                        </div>
+                        <div class="issue-text">
+                            <p>你的单位性质？</p>
+                            <div class="answer">
+                                    <input type="radio" id="dan1_one" name="dan1" value="机关" />
+                                    <label class="radio-btn" for="dan1_one">机关</label>
+                                    <input type="radio" id="dan1_two" name="dan1" value="团体" />
+                                    <label  class="radio-btn" for="dan1_two">团体</label>
+                                    <input type="radio" id="dan1_three" name="dan1" value="法人" />
+                                    <label  class="radio-btn" for="dan1_three">法人</label>   
+                                    <input type="radio" id="dan1_four" name="dan1" value="企业" />
+                                    <label  class="radio-btn" for="dan1_four">企业</label>   
+                                </div>
+                        </div>
+                    </div>
+                    <div class="issue">
+                            <div class="title">
+                                <h2>第2题</h2>
+                            </div>
+                            <div class="issue-text">
+                                <p>家庭住址？</p>
+                                <div class="answer">
+                                    <input type="text" name="lname" class="textInput" id="dan2" placeholder="请输入您的家挺住址" />
+                                    <!-- <input type="radio" id="dan2_one" name="dan2" value="dan2_one"/>
+                                    <label class="radio-btn" for="dan2_one">十分满意</label>
+                                    <input type="radio" id="dan2_two" name="dan2" value="dan2_two"/>
+                                    <label  class="radio-btn" for="dan2_two">一般般吧</label>
+                                    <input type="radio" id="dan2_three" name="dan2" value="dan2_three"/>
+                                    <label  class="radio-btn" for="dan2_three">很不满意</label>    -->
+                                </div>
+                            </div>
+                    </div>
+                    <div class="issue">
+                            <div class="title">
+                                <h2>第3题</h2>
+                            </div>
+                            <div class="issue-text">
+                                <p>家里有几个孩子？</p>
+                                <div class="answer">
+                                        <input type="radio" id="dan3_one" name="dan3" value="0个" />
+                                        <label class="radio-btn" for="dan3_one">0个</label>
+                                        <input type="radio" id="dan3_two" name="dan3" value="1个" />
+                                        <label  class="radio-btn" for="dan3_two">1个</label>
+                                        <input type="radio" id="dan3_three" name="dan3" value="2个" />
+                                        <label  class="radio-btn" for="dan3_three">2个</label> 
+                                        <input type="radio" id="dan3_four" name="dan3" value="两个以上" />
+                                        <label  class="radio-btn" for="dan3_four">2个以上</label>     
+                                    </div>
+                            </div>
+                    </div>
+                    <!-- <div class="issue">
+                            <div class="title">
+                                <h2>第4题</h2>
+                            </div>
+                            <div class="issue-text">
+                                <p>对居委会的管理制度满意吗？</p>
+                                <div class="answer">
+                                        <input type="radio" id="dan4_one" name="dan4" value="dan4_one" />
+                                        <label class="radio-btn" for="dan4_one">十分满意</label>
+                                        <input type="radio" id="dan4_two" name="dan4" value="dan4_two"/>
+                                        <label  class="radio-btn" for="dan4_two">一般般吧</label>
+                                        <input type="radio" id="dan4_three" name="dan4" value="dan4_three"/>
+                                        <label  class="radio-btn" for="dan4_three">很不满意</label>   
+                                    </div>
+                            </div>
+                    </div> -->
+                </section>
+            </div>
+            <div class="btn">
+                    <div class="lipin">
+                    <img class="bolang" src="./img/present/bolang.png" alt="抢">
+                    <img class="qiang" src="./img/present/bt_qiang.png" alt="抢" onclick="$f('___.submit')">
+                    <img class="bolang" src="./img/present/bolang.png" alt="抢">
+                    </div>
+            </div>
+            <footer>
+                    <div class="advertising">
+                        <div>
+                            <img src="./img/present/qr_code.png" alt="二维码">
+                        </div>
+                        <div class="adv-text">
+                            <p>识别图中二维码，关注济南社区通获得更多活动信息！</p>
+                        </div>
+                    </div>
+                </footer>
+            
+    </div>
+
+</div>
+
+</template>
+<script>
+    $f("df", ___, function(_page, _data) {
+
+        var data = {
+            data: _data
+        };
+        var html = template.render(_page, data)
+        $("#container").html(html);
+
+
+    });
+
+    $f("df", "___.submit", function() {
+        var issue1 = $("input[name='dan1']:checked").val();
+        var issue2 = $("#dan2").val();
+        var issue3 = $("input[name='dan3']:checked").val();
+        var data = {
+
+            'answer1': issue1,
+            'answer2': issue2,
+            'answer3': issue3,
+            'answer4': ''
+        }
+        console.log(data);
+        if ((issue1 != '' && issue2 != '' && issue3 != '') &&
+            (issue1 != undefined && issue2 != undefined && issue3 != undefined)) {
+            //执行添加操作
+            $f("ajax.post", $f("server", "survey/addSurvey"), data, "___.add")();
+            //跳转页面
+            // $f('plugin', 'present.choose-gifts', 0);
+        } else {
+            alert("请先填写完问卷！");
+        }
+    });
+
+
+    $f("df", "___.add", function(_data) {
+
+        if (_data.data == 'success') {
+            //跳转页面
+            $f('plugin', 'present.choose-gifts', 0);
+        }
+    });
+</script>

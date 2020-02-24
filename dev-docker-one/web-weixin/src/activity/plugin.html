@@ -1,0 +1,28 @@
+<template>
+    {{each data}}
+    <div class="weui-panel">
+        <div class="weui-panel__hd">活动</div>
+        <div class="weui-panel__bd">
+            <div class="weui-media-box weui-media-box_text">
+                <h4 class="weui-media-box__title">{{$value.title}}</h4>
+                <p class="weui-media-box__desc">{{$value.content}}</p>
+                <ul class="weui-media-box__info">
+                    <li class="weui-media-box__info__meta">活动时间</li>
+                    <li class="weui-media-box__info__meta">{{$value.time}}</li>
+                    <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{$value.signNum}}人报名</li>
+                    <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{$value.punchNum}}人签到</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</template>
+<script>
+    $f("df", ___, function (page, data) {
+        $f("plugin.startTest", "___");
+        $f("ajax.get", $f("server", "activity/list"), {}, "___.show", page)();
+    });
+    $f("df", "___.show", function (data, page) {
+        $f("renderhtml", "body", page, data);
+    });
+</script>

@@ -1,0 +1,33 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: xccloud
+      MYSQL_DATABASE: achievement
+      MYSQL_USER: xccloud
+      MYSQL_PASSWORD: xccloud
+
+  backend:
+    image: tomcat:8-jre10
+    volumes:
+      - ./backend:/usr/local/tomcat/webapps
+    depends_on:
+      - mysql
+
+  redis:
+    hostname: redis
+    image: redis
+
+  nginx:
+    image: nginx:1.15
+    volumes:
+      - ./web-weixin:/usr/share/nginx/html/weixin
+      - ./nginx:/etc/nginx/conf.d/
+    ports:
+      - "8001:80"
+    depends_on:
+      - backend

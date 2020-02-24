@@ -1,0 +1,148 @@
+<template>
+    <style>
+        .navigate{
+            text-align: center;
+        }
+        /* 局部样式 */
+        .navigate>img{
+            width: 10rem;
+        }
+
+        footer{
+            position: relative;
+            top:-2rem;
+        }
+        .advertising{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-items: center;
+            width: 60%;
+            margin: 0 20%;
+        }
+        .advertising img{
+            width: 5rem;
+        }
+        
+        .adv-text{
+            margin-left: 0.8rem;
+            font-size: 0.8rem;
+            line-height: 1.4;
+            color: #4c4e4e;
+        }
+
+
+        .alert_gift{
+            text-align: center;
+            /* padding: 1.8rem 0; */
+            padding-top: 1.4rem;
+            padding-bottom: 2.6rem;
+
+        }
+        .alert_gift img{
+            width: 12rem
+        }
+        .result_text{
+            margin-top: 1.2rem
+        }
+        .result_text p{
+            color: red;
+            font-size: 1.4rem;
+        }
+        body {
+            background-image: url('/weixin/img/present/bg_top.png'), url('/weixin/img/present/bg_bottom.png');
+            background-size: 100%;
+            /* background-position: left top, right bottom; */
+            background-position: top, bottom;
+            background-repeat: no-repeat;
+        }
+    </style>
+    <div class="content">
+        <nav>
+            <div class="navigate">
+                <img src="/weixin/img/present/linglipin.png" alt="领礼品" srcset="">
+            </div>
+        </nav>
+        <div class="alert_gift">
+            {{if state==1 }}
+                {{if giftName==1 }}
+                    <div>
+                        <img src="/weixin/img/present/dadangao.png" alt="DIY蛋糕">
+                    </div>
+                    <div class="result_text">
+                            <p>恭喜您，抢到DIY蛋糕一份！</p>
+                            <p>兑换码：{{cashCode}}</p>
+                    </div>
+                {{else if giftName==2 }}
+                    <div>
+                        <img src="/weixin/img/present/chaomei.png" alt="普通蛋糕">
+                    </div>
+                    <div class="result_text">
+                            <p>恭喜您，抢到普通蛋糕一份！</p>
+                            <p>兑换码：{{cashCode}}</p>
+                    </div>  
+                {{else if giftName==3 }}
+                    <div>
+                        <img src="/weixin/img/present/lipin.png " alt="精美礼品蛋糕">
+                    </div>
+                    <div class="result_text">
+                            <p>恭喜您，抢到精美礼品一份！</p>
+                            <p>兑换码：{{cashCode}}</p>
+                    </div> 
+                {{/if}}
+            {{else}}
+                    <div>
+                        <img src="/weixin/img/present/daku.png" alt="大哭">
+                    </div>
+                    <div class="result_text">
+                            {{if state==2 }}
+                            <p>抱歉，活动已结束！</p>
+                            {{/if}}
+                    </div>
+            {{/if}}
+        </div>
+        <footer>
+                <div class="advertising">
+                    <div>
+                        <img src="/weixin/img/present/qr_code.png" alt="二维码">
+                    </div>
+                    <div class="adv-text">
+                        <p>识别图中二维码，关注济南社区通获得更多活动信息！</p>
+                    </div>
+                </div>
+            </footer>
+    </div>
+</template>
+<script>
+    $f("df", ___, function(page, _data) {
+        console.log(_data + "333333333333");
+        var strs = new Array(); //定义一数组
+        var state;
+        if (_data == 0) {
+            state = 2;
+        } else {
+            strs = _data.split(","); //字符分割
+            var giftName = strs[0];
+            var cashCode = strs[1];
+            state = strs[2];
+        }
+        // var state;
+        // if(_data==0){
+        //     state=0
+        // }else{
+        //     state=1;
+        //     giftName=_data.goods；
+        // }
+
+        var data = {
+            state: state, //状态：1、已抢到。2、活动已结束
+            giftName: giftName, //1、 DIY蛋糕 2、普通蛋糕   3、精美礼品
+            cashCode: cashCode //兑换码
+
+        };
+
+        var html = template.render(page, data);
+        $("#container").html(html);
+
+    });
+</script>

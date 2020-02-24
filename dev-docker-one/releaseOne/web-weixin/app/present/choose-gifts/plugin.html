@@ -1,0 +1,408 @@
+<template>
+    <style>
+        .navigate {
+            text-align: center;
+        }
+
+        /* 局部样式 */
+
+        .navigate>img {
+            width: 10rem;
+        }
+
+        .gift-list {
+            text-align: center;
+        }
+
+        .gift {
+            position: relative;
+            top: -1rem;
+        }
+
+        .gift>.title {
+            position: relative;
+            z-index: 111;
+            top: 2rem;
+            font-size: 0.8rem;
+        }
+
+        .title>h2 {
+            width: 14rem;
+            margin: 0 auto;
+            background: url(./img/present/issue_top.png) no-repeat;
+            background-size: 100%;
+            color: #fff;
+        }
+
+        .gift>.detail {
+            background: #fff;
+            border: 2px solid #42b2a1;
+            border-radius: 10px;
+            margin: 1.2rem auto;
+            margin-bottom: 0rem;
+            padding: 0.6rem;
+            padding-top: 1.2rem;
+        }
+
+        .detail>.de_img {
+            width: 30%;
+        }
+
+        .detail>.text {
+            width: 40%;
+            text-align: left;
+            padding-left: 0.5rem;
+        }
+
+        .detail>.btn {
+            width: 27%;
+        }
+
+        .qiang {
+            background: url(/weixin/img/present/qiang_btn.png) no-repeat;
+            background-size: 100%;
+            color: #fff;
+            width: 4.5rem;
+            height: 2rem;
+            line-height: 2rem;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .de_img>img {
+            width: 4.5rem;
+        }
+
+        .display_flex {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-items: center;
+        }
+
+        .detail_title {
+            margin-bottom: 0.2rem;
+            line-height: 1.4;
+
+        }
+
+        .dd {
+            color: #40b1a0;
+        }
+
+        footer {
+            position: relative;
+            top: -2rem;
+            padding-bottom: 4rem;
+        }
+
+        .advertising {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-items: center;
+            width: 60%;
+            margin: 0 20%;
+        }
+
+        .advertising img {
+            width: 5rem;
+        }
+
+        .adv-text {
+            margin-left: 0.8rem;
+            font-size: 0.8rem;
+            line-height: 1.4;
+            color: #4c4e4e;
+        }
+
+        /* 蒙层 */
+
+        .shade {
+            position: absolute;
+            top: 0;
+            z-index: 222;
+            background: rgba(0, 0, 0, 0.7);
+            height: 100%;
+            width: 100%;
+            display: none;
+        }
+
+        .alert_gift {
+            text-align: center;
+            padding: 5rem 0;
+        }
+
+        .alert_gift img {
+            width: 14rem
+        }
+
+        .result_text {
+            margin-top: 1.2rem
+        }
+
+        .result_text p {
+            color: #f9e504;
+            font-size: 1.4rem;
+        }
+
+        /* 初始化页面 */
+
+        #divdg,
+        #ptdg,
+        #jmlp {
+            display: none;
+        }
+        .qiangguang{
+            background: url(/weixin/img/present/qguang_btn.png) no-repeat;
+            background-size: 100%;
+            color: #fff;
+            width: 4.5rem;
+            height: 2rem;
+            line-height: 2rem;
+            display: none;
+            margin: 0 auto;
+        }
+    </style>
+    <div class="content_bg">
+        <div class="content">
+            <nav>
+                <div class="navigate">
+                    <img src="./img/present/threetoOne.png" alt="三选一">
+                </div>
+            </nav>
+            <div class="gift-list">
+                <section>
+                    <div class="gift">
+                        <div class="title">
+                            <h2>DIV蛋糕</h2>
+                        </div>
+                        <div class="detail display_flex">
+                            <div class="de_img">
+                                <img src="./img/present/divdangao.png" alt="DIV蛋糕">
+                            </div>
+                            <div class="text">
+                                <p class="detail_title">
+                                    免费获得DIV蛋糕一份
+                                </p>
+                                <p class="dd">
+                                    剩余
+                                    <span id="goodNmb1">0</span>份
+                                </p>
+                            </div>
+                            <div class="btn">
+                                <a class="qiang" onclick="$f('__.qiang',{'giftName':1})" id="diydgbtnTrue">抢一份</a>
+                                <a class="qiangguang" id="diydgbtnFalse">抢光啦</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gift" style="top:-2.2rem">
+                        <div class="title">
+                            <h2>精美蛋糕</h2>
+                        </div>
+                        <div class="detail display_flex">
+                            <div class="de_img">
+                                <img src="./img/present/chaomei.png" alt="精美蛋糕">
+                            </div>
+                            <div class="text">
+                                <p class="detail_title">
+                                    免费获得精美蛋糕一份
+                                </p>
+                                <p class="dd">
+                                    剩余
+                                    <span id="goodNmb2">0</span>份
+                                </p>
+                            </div>
+                            <div class="btn">
+                                <a class="qiang" onclick="$f('__.qiang',{'giftName':2})" id="jmdgbtnTrue">抢一份</a>
+                                <a class="qiangguang" id="jmdgbtnFalse">抢光啦</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gift" style="top:-3.4rem">
+                        <div class="title">
+                            <h2>精美礼品</h2>
+                        </div>
+                        <div class="detail display_flex">
+                            <div class="de_img">
+                                <img src="./img/present/lipin.png" alt="精美礼品">
+                            </div>
+                            <div class="text">
+                                <p class="detail_title">
+                                    免费获得精美礼品一份
+                                </p>
+                                <p class="dd">
+                                    剩余
+                                    <span id="goodNmb3">0</span>份
+                                </p>
+                            </div>
+                            <div class="btn">
+                                <a class="qiang" onclick="$f('__.qiang',{'giftName':3})" id="jmlpbtnTrue">抢一份</a>
+                                <a class="qiangguang" id="jmlpbtnFalse">抢光啦</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <footer>
+                <div class="advertising">
+                    <div>
+                        <img src="/weixin/img/present/qr_code.png" alt="二维码">
+                    </div>
+                    <div class="adv-text">
+                        <p>识别图中二维码，关注济南社区通获得更多活动信息！</p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <div class="shade">
+            <div class="alert_gift">
+                <div id="diydg" style="display: none;">
+                    <div>
+                        <img src="/weixin/img/present/dadangao.png" alt="DIY蛋糕">
+                    </div>
+                    <div class="result_text">
+                        <p>恭喜您，抢到DIY蛋糕一份！</p>
+                        <p>兑换码:
+                            <span id="diydgCode"></span>
+                        </p>
+                    </div>
+                </div>
+                <div id="ptdg" style="display: none;">
+                    <div>
+                        <img src="/weixin/img/present/chaomei.png" alt="普通蛋糕">
+                    </div>
+                    <div class="result_text">
+                        <p>恭喜您，抢到普通蛋糕一份！</p>
+                        <p>兑换码：
+                            <span id="ptdgCode"></span>
+                        </p>
+                    </div>
+                </div>
+                <div id="jmlp" style="display: none;">
+                    <div>
+                        <img src="/weixin/img/present/lipin.png " alt="精美礼品蛋糕">
+                    </div>
+                    <div class="result_text">
+                        <p>恭喜您，抢到精美礼品一份！</p>
+                        <p>兑换码：
+                            <span id="jmlpCode"></span>
+                        </p>
+                    </div>
+                </div>
+                <div id="noqd" style="display: none;">
+                    <div>
+                        <img src="/weixin/img/present/daku.png" alt="大哭">
+                    </div>
+                    <div class="result_text">
+                        <p>手慢啦，礼品已被抢光，请下次参与！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+    $f("df", ___, function(page) {
+            console.log("到这个页面了吗");
+
+            var html = template.render(page);
+            $("#container").html(html);
+
+            setTimeout(function() {
+                var content_bg_height = $('.content_bg').height();
+                var body_height = $('body').height();
+                if (content_bg_height < body_height) {
+                    console.log('背景高度比body高度小');
+                    $('.content_bg').height(body_height);
+                }
+            }, 500);
+
+            $f("ajax.get", $f("server", "rob/getGoodNum"), {}, "___.showNum")();
+
+
+        })
+        //显示礼品剩余数量
+    $f("df", "___.showNum", function(_data) {
+        console.log(_data);
+        $("#goodNmb1").text(_data.data[0]);
+        if (_data.data[0] == 0) {
+            $('#diydgbtnTrue').css("display", "none");
+            $('#diydgbtnFalse').css("display", "block");
+        }
+        if (_data.data[1] == 0) {
+            $('#jmdgbtnTrue').css("display", "none");
+            $('#jmdgbtnFalse').css("display", "block");
+        }
+        if (_data.data[2] == 0) {
+            $('#jmlpbtnTrue').css("display", "none");
+            $('#jmlpbtnFalse').css("display", "block");
+        }
+        $("#goodNmb2").text(_data.data[1]);
+        $("#goodNmb3").text(_data.data[2]);
+    });
+
+    // 抢蛋糕方法
+    // giftName 1、DIY蛋糕  2、普通蛋糕   3、精美礼品
+    $f("df", "__.qiang", function(_data) {
+        console.log(_data.giftName);
+
+        // 请求接口返回抢礼品结果
+        $f("ajax.get", $f("server", "rob/addRob"), {
+            goods: _data.giftName
+        }, "___.show")();
+
+    })
+    $f("df", "___.show", function(_data) {
+
+        console.log(_data);
+        var strs = new Array(); //定义一数组
+        strs = _data.data.split(","); //字符分割
+        var giftName = parseInt(strs[0]);
+        var cashCode = strs[1];
+        var state = parseInt(strs[2]);
+
+
+
+        if (state == 1) {
+            // 已抢到
+            switch (giftName) {
+                case 1:
+                    console.log("DIY蛋糕");
+                    $('#ptdg').css("display", "none");
+                    $('#jmlp').css("display", "none");
+                    $('#noqd').css("display", "none");
+                    $('#diydg').css("display", "block");
+                    $('#diydgCode').text(cashCode);
+                    break;
+                case 2:
+                    console.log("普通蛋糕");
+                    $('#diydg').css("display", "none");
+                    $('#jmlp').css("display", "none");
+                    $('#noqd').css("display", "none");
+                    $('#ptdg').css("display", "block");
+                    $('#ptdgCode').text(cashCode);
+                    break;
+                case 3:
+                    console.log("精美礼品");
+                    $('#ptdg').css("display", "none");
+                    $('#diydg').css("display", "none");
+                    $('#noqd').css("display", "none");
+                    $('#jmlp').css("display", "block");
+                    $('#jmlpCode').text(cashCode);
+                    break;
+                default:
+                    console.log('程序错误');
+            }
+        } else {
+            // 未抢到
+            console.log("没抢到！");
+            $('#ptdg').css("display", "none");
+            $('#diydg').css("display", "none");
+            $('#jmlp').css("display", "none");
+            $('#noqd').css("display", "block");
+
+        }
+        $('.shade').css("display", "block");
+    })
+</script>

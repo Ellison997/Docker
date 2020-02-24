@@ -1,0 +1,13 @@
+some:
+  url: /backend/sign/mylist
+  rtn:
+    success: true
+    data:
+      -
+        title: 第1次会议
+        content: xxx会议
+        time: 2018-07-12 12:21
+      -
+        title: 第2次会议
+        content: xxx会议
+        time: 2018-07-19 12:21
