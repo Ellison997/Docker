@@ -1,7 +1,6 @@
 version: '3'
 services:
   nginx:
-    container_name: local_nginx
     image: nginx:1.15
     volumes:
       - ./html:/usr/share/nginx/html/
@@ -11,14 +10,12 @@ services:
     network_mode: bridge
 
   # redis:
-  #   container_name: redis
   #   hostname: redis
   #   image: redis
   #   ports:
   #     - "6379:6379"
     
   # redis-commander:
-  #  container_name: redis-commander
   #  hostname: redis-commander
   #  image: rediscommander/redis-commander:latest
   #  environment:
@@ -26,17 +23,17 @@ services:
   #  ports:
   #  - 8001:8081
   
-  # mysql:
-  #   container_name: mysql
-  #   image: mysql:5.7
-  #   volumes:
-  #     - ./db:/docker-entrypoint-initdb.d
-  #   ports:
-  #     - "3306:3306"
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: xccloud
-  #     MYSQL_USER: xccloud
-  #     MYSQL_PASSWORD: xccloud
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+      - ./mysql:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: xccloud
+      MYSQL_USER: root
+      MYSQL_PASSWORD: xccloud
 
   # phpmyadmin:
   #   image: phpmyadmin/phpmyadmin:latest
@@ -49,12 +46,3 @@ services:
   #     PMA_PORT: 3306
   #     PMA_USER: xccloud
   #     PMA_PASSWORD: xccloud
-
-  # backend:
-  #   image: tomcat:8-jre10
-  #   volumes:
-  #     - ./backend:/usr/local/tomcat/webapps
-  #   depends_on:
-  #     - mysql
-  #   ports:
-  #     - "8088:8080"
